@@ -6,11 +6,11 @@
 <link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
-<meta name="drape-build" content="20261101134616">
+<meta name="drape-build" content="20261101162137">
 <title>Drape</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="drape.css?v=20261101134616">
+<link rel="stylesheet" href="drape.css?v=20261101162137">
 <style>
 :root{--p:0}
 button{font:inherit;color:inherit}
@@ -270,6 +270,19 @@ h1{font-size:clamp(60px,8vw,128px)}
 .end .huge{margin-top:60px}
 footer{flex-direction:column;gap:14px;text-align:center}
 }
+
+/* ---------- editorial cards: no plates ---------- */
+.fit .flip,.fit .tag{display:none!important}
+.fit .tags{top:14px!important;right:12px!important}
+.fit .heart{background:none!important}
+.fit .heart svg{stroke:rgb(var(--ink-rgb) / .55)!important}
+.fit .heart:hover svg,.fit .heart[aria-pressed=true] svg{stroke:var(--ink)!important}
+.fit .label{background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;padding:0!important;left:20px!important;right:18px!important;bottom:18px!important;align-items:flex-end!important;color:#101316}
+.fit .label b{font:400 clamp(20px,1.7vw,24px)/1.05 var(--serif)!important;letter-spacing:-.01em;color:#101316}
+.fit .label span{font-size:10px!important;letter-spacing:.14em;text-transform:uppercase;color:rgba(16,19,22,.55)!important;margin-top:6px!important}
+.fit .label svg{stroke:#101316!important}
+.fit img{bottom:24%!important}
+@media (max-width:900px){.fit .label{left:14px!important;right:12px!important;bottom:14px!important}.fit .label b{font-size:19px!important}}
 </style></head><body id="top">
 <header>
 <div class="l"><nav><a href="catalog.html">Catalog</a><a href="wardrobe.html">Wardrobe</a><a href="outfits.html">Outfits</a></nav></div>
@@ -318,9 +331,9 @@ footer{flex-direction:column;gap:14px;text-align:center}
 <section class="end" data-reveal><h2 data-split>Your wardrobe. Your looks. <em>Your rules.</em></h2><p>Private by default. Share only if you want to.</p><a class="btn light" href="wardrobe.html">Start styling</a><span class="huge" aria-hidden="true">Drape</span></section>
 <footer><span class="word">Drape</span><nav><a href="catalog.html">Catalog</a><a href="wardrobe.html">Wardrobe</a><a href="outfits.html">Outfits</a></nav><span><a href="credits.html" style="color:inherit">Credits</a> · © 2026 Drape</span></footer>
 
-<script src="drape-store.js?v=20261101134616"></script>
-<script src="drape-nav.js?v=20261101134616"></script>
-<script src="drape-catalog.js?v=20261101134616"></script>
+<script src="drape-store.js?v=20261101162137"></script>
+<script src="drape-nav.js?v=20261101162137"></script>
+<script src="drape-catalog.js?v=20261101162137"></script>
 <script>
 (function(){
 var root=document.documentElement,hdr=document.querySelector('header');

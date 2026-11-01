@@ -6,11 +6,11 @@
 <link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
-<meta name="drape-build" content="20261101134616">
+<meta name="drape-build" content="20261101162137">
 <title>Outfits · Drape</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="drape.css?v=20261101134616">
+<link rel="stylesheet" href="drape.css?v=20261101162137">
 <style>
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -199,6 +199,22 @@ h1,h2{font-size:clamp(32px,10vw,44px)}
 .look{border-radius:18px}
 .toast{bottom:calc(96px + env(safe-area-inset-bottom))}
 }
+
+/* ---------- editorial cards: no plates ---------- */
+.opt span{background:none!important;padding:0!important;left:10px!important;right:8px!important;bottom:9px!important;border-radius:0!important;font-size:12px!important}
+.opt img.flat{padding:10% 10% 26%!important}
+.look .tag{background:none!important;height:auto!important;padding:0!important;top:18px!important;right:18px!important;font-size:10px!important;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.look .label{background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;padding:0!important;left:18px!important;right:16px!important;bottom:16px!important;border-radius:0!important;align-items:flex-end!important}
+.look .label b{font:400 22px/1.05 var(--serif)!important;letter-spacing:-.01em}
+.look .label span{font-size:10px!important;letter-spacing:.14em;text-transform:uppercase;margin-top:6px!important}
+.look .label svg{stroke:var(--muted)}
+.slot{background:none!important;border-color:transparent!important;border-bottom:1px solid var(--line)!important;border-radius:0!important}
+.slot[aria-pressed=true]{border-bottom-color:var(--ink)!important}
+.slot b{font-weight:400!important}
+.shuffle{border:0!important;background:none!important;padding:0!important;color:var(--muted);letter-spacing:.14em!important;font-size:11px!important}
+.shuffle:hover{color:var(--ink)}
+.none-opt{border:1px dashed var(--line)!important;background:none!important}
+@media (max-width:900px){.slot{border-bottom:2px solid transparent!important}.slot[aria-pressed=true]{border-bottom-color:var(--ink)!important}}
 </style></head><body>
 <header>
 <div class="l"><nav><a href="catalog.html">Catalog</a><a href="wardrobe.html">Wardrobe</a><a href="outfits.html" aria-current="page">Outfits</a></nav></div>
@@ -243,9 +259,9 @@ h1,h2{font-size:clamp(32px,10vw,44px)}
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="drape-store.js?v=20261101134616"></script>
-<script src="drape-nav.js?v=20261101134616"></script>
-<script src="drape-catalog.js?v=20261101134616"></script>
+<script src="drape-store.js?v=20261101162137"></script>
+<script src="drape-nav.js?v=20261101162137"></script>
+<script src="drape-catalog.js?v=20261101162137"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem("drape-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
+<link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
+<title>Profile · Drape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="drape.css?v=1102l">
+<style>
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+header{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:16px 58px 12px;background:rgb(var(--page-rgb) / .78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+nav{display:flex;gap:34px}
+nav a{color:var(--ink);text-decoration:none;font-size:14px;letter-spacing:.06em;text-transform:uppercase;padding:6px 0;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
+nav a:hover{background-size:100% 1px}
+.word{font-family:var(--serif);font-size:34px;line-height:1;color:var(--ink);text-decoration:none}
+.r{display:flex;justify-content:flex-end}
+.icon{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgb(var(--glass-rgb) / .5);display:grid;place-items:center;cursor:pointer;transition:background .2s,transform .2s;padding:0;color:var(--ink)}
+.icon:hover{background:var(--surface);transform:translateY(-1px)}
+.icon[aria-current=page]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;padding:0 26px;border-radius:999px;font:500 14px/1 "Instrument Sans",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;transition:transform .2s,background .2s,opacity .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.dark{background:var(--ink);color:var(--on-ink)}
+.btn.ghost{background:transparent;border:1px solid var(--line)}
+.btn.red{background:transparent;color:var(--danger);border:1px solid rgba(179,38,30,.35)}
+
+main{max-width:1100px;margin:0 auto;padding:70px 58px 140px}
+.eyebrow{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.eyebrow svg{width:15px;height:15px}
+h1{margin:16px 0 0;font-family:var(--h-font);font-weight:var(--h-weight);font-size:clamp(48px,6vw,96px);line-height:.95;letter-spacing:var(--h-track);text-transform:var(--h-case)}
+h1 em,h2 em{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:-.02em;font-size:var(--h-em)}
+h2{margin:0 0 24px;font-family:var(--h-font);font-weight:var(--h-weight);font-size:28px;letter-spacing:var(--h-track);text-transform:var(--h-case)}
+
+.who{display:flex;align-items:center;gap:26px;margin:50px 0 70px}
+.avatar{flex:none;width:96px;height:96px;border-radius:50%;background:var(--ink);color:var(--on-ink);display:grid;place-items:center;font-family:var(--serif);font-size:48px}
+.who label{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.who input{width:min(420px,60vw);height:52px;padding:0 18px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-size:18px}
+.who input:focus{outline:none;border-color:var(--ink)}
+.who small{display:block;margin-top:8px;color:var(--muted);font-size:13px}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:90px}
+.stat{display:block;padding:26px;border-radius:24px;background:radial-gradient(120% 80% at 50% 100%,rgb(var(--glass-rgb) / .75),rgb(var(--glass-rgb) / 0) 60%),linear-gradient(180deg,var(--tint-1),var(--tint-2));color:var(--ink);text-decoration:none;transition:transform .3s}
+.stat:hover{transform:translateY(-4px)}
+.stat b{display:block;font-family:var(--h-font);font-weight:var(--h-weight);font-size:72px;line-height:1;letter-spacing:var(--h-track);margin-bottom:40px}
+.stat span{display:flex;justify-content:space-between;align-items:center;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+
+.rows{border-top:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:28px 0;border-bottom:1px solid var(--line)}
+.seg{display:flex;gap:4px;padding:4px;border-radius:var(--r-pill);background:rgb(var(--glass-rgb) / .6);border:1px solid var(--line)}
+.seg button{height:40px;padding:0 18px;border:0;border-radius:var(--r-pill);background:transparent;color:var(--ink);font:inherit;font-size:13px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.seg button[aria-checked=true]{background:var(--ink);color:var(--on-ink)}
+.row h3{margin:0 0 6px;font-weight:500;font-size:18px}
+.row p{margin:0;color:var(--muted);line-height:1.5;max-width:56ch}
+.note{display:flex;gap:12px;align-items:flex-start;margin-top:28px;padding:20px 22px;border-radius:18px;background:rgb(var(--glass-rgb) / .55);color:var(--muted);line-height:1.5;font-size:14px}
+.note svg{flex:none;width:18px;height:18px;margin-top:2px;color:var(--ink)}
+
+.toast{position:fixed;left:50%;bottom:34px;transform:translate(-50%,20px);opacity:0;z-index:50;padding:14px 22px;border-radius:999px;background:var(--ink);color:var(--on-ink);font-size:14px;transition:opacity .3s,transform .3s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* soft entrance */
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+h1,.who,main>.eyebrow{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.who{animation-delay:.15s}
+.anim>*>*,.anim>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) backwards}
+.anim>*>*:nth-child(2),.anim>*:nth-child(2){animation-delay:0.06s}.anim>*>*:nth-child(3),.anim>*:nth-child(3){animation-delay:0.12s}.anim>*>*:nth-child(4),.anim>*:nth-child(4){animation-delay:0.18s}.anim>*>*:nth-child(5),.anim>*:nth-child(5){animation-delay:0.24s}.anim>*>*:nth-child(6),.anim>*:nth-child(6){animation-delay:0.30s}.anim>*>*:nth-child(7),.anim>*:nth-child(7){animation-delay:0.36s}.anim>*>*:nth-child(8),.anim>*:nth-child(8){animation-delay:0.42s}.anim>*>*:nth-child(9),.anim>*:nth-child(9){animation-delay:0.48s}.anim>*>*:nth-child(10),.anim>*:nth-child(10){animation-delay:0.54s}.anim>*>*:nth-child(11),.anim>*:nth-child(11){animation-delay:0.60s}.anim>*>*:nth-child(12),.anim>*:nth-child(12){animation-delay:0.66s}
+@media (prefers-reduced-motion:reduce){h1,.who,main>.eyebrow,.anim>*,.anim>*>*{animation:none!important}}
+@media (max-width:900px){header{padding-left:22px;padding-right:22px}nav{display:none}main{padding:40px 22px 90px}.stats{grid-template-columns:1fr}.row{flex-direction:column;align-items:flex-start}}
+
+
+@media (min-width:901px){h1{font-size:clamp(56px,7vw,112px)}}
+/* ---------- phone ---------- */
+@media (max-width:900px){
+header{padding:12px var(--gutter) 10px}main{padding:22px var(--gutter) 40px}
+h1{font-size:clamp(34px,11vw,48px)}
+.stat b{font-size:48px;margin-bottom:18px}
+.row{padding:20px 0}
+.seg{width:100%}.seg button{flex:1;padding:0 8px}
+.toast{bottom:calc(96px + env(safe-area-inset-bottom))}
+}
+</style></head><body>
+<header>
+<div class="l"><nav><a href="catalog.html">Catalog</a><a href="wardrobe.html">Wardrobe</a><a href="outfits.html">Outfits</a></nav></div>
+<a class="word" href="index.html" aria-label="Drape home">Drape</a>
+<div class="r"><a class="icon" href="profile.html" aria-label="Profile" aria-current="page"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.8 20c.9-3.6 3.5-5.4 7.2-5.4s6.3 1.8 7.2 5.4"/></svg></a></div>
+</header>
+
+<main>
+<div class="eyebrow"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Private · only you can see it</div>
+<h1>Your <em>profile</em></h1>
+
+<div class="who">
+<div class="avatar" id="avatar" aria-hidden="true">D</div>
+<div><label for="name">Your name</label><input id="name" maxlength="30" placeholder="What should we call you?" autocomplete="nickname"><small>Only shown to you, on this device.</small></div>
+</div>
+
+<div class="stats anim">
+<a class="stat" href="wardrobe.html"><b id="nItems">–</b><span>Items in wardrobe <svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></a>
+<a class="stat" href="outfits.html"><b id="nLooks">–</b><span>Saved looks <svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></a>
+<a class="stat" href="wardrobe.html"><b id="nFav">–</b><span>Favorites <svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></a>
+</div>
+
+<h2>Your <em>settings</em></h2>
+<div class="rows" style="margin-bottom:56px">
+<div class="row"><div><h3>Appearance</h3><p>Auto follows your phone or computer. Light and Dark stay as you pick them.</p></div><div class="seg" id="theme" role="radiogroup" aria-label="Appearance"><button type="button" data-t="auto" role="radio">Auto</button><button type="button" data-t="light" role="radio">Light</button><button type="button" data-t="dark" role="radio">Dark</button></div></div>
+</div>
+
+<h2>Your <em>data</em></h2>
+<div class="rows">
+<div class="row"><div><h3>Download a copy</h3><p>Get one file with all your items, photos and looks. Keep it as a backup or take it with you.</p></div><button class="btn ghost" id="export"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Export my data</button></div>
+<div class="row"><div><h3>Delete everything</h3><p>Remove all items, photos and looks from this device. This can't be undone.</p></div><button class="btn red" id="wipe">Delete all my data</button></div>
+</div>
+<div class="note"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><div>Right now Drape keeps everything only in this browser, on this device. Nothing is uploaded anywhere. Accounts and sync across devices will come later.</div></div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="drape-store.js?v=1102f"></script>
+<script src="drape-nav.js?v=1102k"></script>
+<script>
+(function(){
+var $=function(id){return document.getElementById(id)};
+function toast(t){var el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove('on')},2400)}
+function fail(e){console.error(e);toast('Something went wrong. Please try again.')}
+
+// name: a small per-device convenience
+var KEY='drape-name';
+function getName(){try{return localStorage.getItem(KEY)||''}catch(e){return''}}
+function setAvatar(n){$('avatar').textContent=(n.trim()[0]||'D').toUpperCase()}
+$('name').value=getName();setAvatar($('name').value);
+$('name').addEventListener('input',function(){var v=this.value;setAvatar(v);try{localStorage.setItem(KEY,v.trim())}catch(e){}});
+
+var items=[],looks=[];
+function count(){$('nItems').textContent=String(items.length).padStart(2,'0');$('nLooks').textContent=String(looks.length).padStart(2,'0');$('nFav').textContent=String(items.filter(function(i){return i.fav}).length).padStart(2,'0');
+$('export').disabled=$('wipe').disabled=!items.length&&!looks.length}
+function load(){return Promise.all([DrapeStore.all('garments'),DrapeStore.all('outfits')]).then(function(r){items=r[0]||[];looks=r[1]||[];count()})}
+load().catch(fail);
+
+function toDataUrl(blob){return new Promise(function(res,rej){var f=new FileReader();f.onload=function(){res(f.result)};f.onerror=function(){rej(f.error)};f.readAsDataURL(blob)})}
+$('export').onclick=function(){var b=this;b.disabled=true;
+Promise.all(items.map(function(it){var c={};Object.keys(it).forEach(function(k){if(k!=='photo')c[k]=it[k]});return it.photo?toDataUrl(it.photo).then(function(u){c.photo=u;return c}):c}))
+.then(function(list){var data={app:'Drape',version:1,exported:new Date().toISOString(),name:getName(),items:list,looks:looks};
+var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download='drape-data-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();
+setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);toast('Your data file is downloading')},fail).then(function(){b.disabled=false})};
+
+$('wipe').onclick=function(){
+if(!confirm('Delete all '+items.length+' items and '+looks.length+' looks from this device?'))return;
+if(!confirm('Last check: this can\'t be undone. Delete everything?'))return;
+Promise.all([DrapeStore.clear('garments'),DrapeStore.clear('outfits')]).then(load).then(function(){toast('All your data was deleted')},fail)};
+
+// ---------- appearance: auto / light / dark, remembered on this device ----------
+(function(){var box=$('theme'),cur='auto';try{cur=localStorage.getItem('drape-theme')||'auto'}catch(e){}
+function mark(){[].forEach.call(box.children,function(b){b.setAttribute('aria-checked',b.dataset.t===cur)})}
+box.onclick=function(e){var b=e.target.closest('[data-t]');if(!b)return;cur=b.dataset.t;
+try{if(cur==='auto')localStorage.removeItem('drape-theme');else localStorage.setItem('drape-theme',cur)}catch(e){}
+if(cur==='auto')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=cur;mark()};mark()})();
+})();
+</script></body></html>

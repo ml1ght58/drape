@@ -46,6 +46,9 @@ h2{margin:0;font-family:var(--h-font);font-weight:var(--h-weight);font-size:clam
 
 /* toolbar */
 .tools{position:sticky;top:74px;z-index:5;padding:14px 0 16px;margin-bottom:20px;background:linear-gradient(var(--page) 80%,rgb(var(--page-rgb) / 0))}
+/* filters slide away while you scroll down to look at clothes, and come back as soon as you scroll up */
+.tools{transition:transform .35s var(--ease),opacity .25s}
+.tools.away{transform:translateY(calc(-100% - 80px));opacity:0;pointer-events:none}
 .search{display:flex;align-items:center;gap:12px;height:56px;padding:0 20px;border-radius:999px;background:var(--surface);border:1px solid var(--line);margin-bottom:14px}
 .search input{flex:1;border:0;outline:none;background:transparent;font-size:16px;height:100%}
 .search svg{color:var(--muted)}
@@ -224,5 +227,10 @@ todo.reduce(function(p,c){return p.then(function(){return addToWardrobe(c)})},Pr
 
 // what's already in the wardrobe
 DrapeStore.all('garments').then(function(list){(list||[]).forEach(function(g){if(g.catalogId)owned[g.catalogId]=g.id})}).catch(function(){}).then(function(){render(true)});
+// ---------- filters hide on the way down, show on the way up ----------
+(function(){var tools=document.querySelector('.tools'),last=scrollY,acc=0,start=tools.getBoundingClientRect().top+scrollY;
+addEventListener('scroll',function(){var y=scrollY,d=y-last;last=y;
+if(y<start+200){tools.classList.remove('away');acc=0;return}
+acc=(d>0)===(acc>0)?acc+d:d;if(acc>40)tools.classList.add('away');else if(acc<-30)tools.classList.remove('away')},{passive:true})})();
 })();
 </script></body></html>

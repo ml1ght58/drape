@@ -53,11 +53,19 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:
 .sub{margin:18px 0 28px;font-size:clamp(16px,1.25vw,18px);color:var(--muted)}
 .ctas{display:flex;gap:10px;justify-content:center;pointer-events:auto}
 .mix{position:absolute;z-index:2;left:58px;bottom:58px;max-width:290px}
-.swatches{display:flex;margin-bottom:22px}
-.swatch{width:46px;height:46px;border-radius:50%;border:3px solid var(--tint-2);margin-right:-10px;cursor:pointer;transition:transform .2s;padding:0;background:var(--card) no-repeat center 24%/340% auto}
-.swatch:hover{transform:translateY(-3px)}
-.swatch[aria-pressed=true]{outline:1.5px solid var(--ink);outline-offset:1px;z-index:1}
-.mix p{margin:0;color:var(--muted);font-size:15px;line-height:1.5;text-indent:56px}
+.lookbar{display:flex;gap:6px;margin-bottom:14px}
+/* thin story-style bars: the active one fills while the look is on screen, a tap jumps to that look */
+.lookbar button{position:relative;width:34px;height:22px;padding:0;border:0;background:none;cursor:pointer}
+.lookbar button::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:rgb(var(--ink-rgb) / .18);transition:background var(--t-fast)}
+.lookbar button:hover::before{background:rgb(var(--ink-rgb) / .35)}
+.lookbar i{position:absolute;left:0;top:50%;height:2px;margin-top:-1px;width:0;border-radius:2px;background:var(--ink)}
+.lookbar .done i{width:100%}
+.lookbar .now i{animation:fill var(--dur,10s) linear forwards}
+.lookbar.paused .now i{animation-play-state:paused}
+@keyframes fill{from{width:0}to{width:100%}}
+.lookname{display:flex;align-items:baseline;gap:10px;color:var(--ink)}
+.lookname b{font:400 26px/1 var(--serif);letter-spacing:-.01em;transition:opacity .3s}
+.lookname span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .view{position:absolute;z-index:2;right:58px;bottom:58px;width:290px;padding:20px;border-radius:22px;background:rgb(var(--glass-rgb) / .55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgb(var(--glass-rgb) / .7)}
 .view-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
 .view-top span:last-child{color:var(--muted);text-transform:none;letter-spacing:0}
@@ -204,9 +212,9 @@ h1{font-size:clamp(60px,8vw,128px)}
 .ctas .btn{height:44px;padding:0 18px;font-size:12px}
 /* look picker and front/back stay on the phone, made compact */
 .mix{display:block!important;left:14px;bottom:14px;max-width:none}
-.mix p{display:none}
-.swatches{margin:0}
-.swatch{width:38px;height:38px;border-width:2px;margin-right:-8px}
+.lookbar{margin-bottom:8px;gap:4px}
+.lookbar button{width:26px;height:26px}
+.lookname b{display:none}
 .view{display:block!important;right:14px;bottom:14px;width:auto;padding:5px;border-radius:999px}
 .view-top{display:none}
 .view .pills{gap:4px}
@@ -254,7 +262,7 @@ footer{flex-direction:column;gap:14px;text-align:center}
 <div class="model" id="model" role="img" aria-label="Black glossy mannequin in a styled outfit"></div>
 <div class="copy"><h1 data-split>See how it <em>drapes</em></h1><p class="sub">Mix. Layer. Find your perfect fit.</p>
 <div class="ctas"><a class="btn dark" href="wardrobe.html">Start styling</a><a class="btn light" href="#how">How it works</a></div></div>
-<div class="mix"><div class="swatches" id="swatches"></div><p>Five looks to start. Pick one, then flip to the back.</p></div>
+<div class="mix"><div class="lookbar" id="lookbar" role="tablist" aria-label="Looks"></div><div class="lookname" aria-live="polite"><span id="lookNo">01 / 05</span><b id="lookName"></b></div></div>
 <div class="view"><div class="view-top"><span>View</span><span>Front or back</span></div>
 <div class="pills two" id="pills"><button class="pill" data-side="front" aria-pressed="true">Front</button><button class="pill" data-side="back">Back</button></div></div>
 </section>
@@ -352,9 +360,25 @@ function showLook(){var want=cur.side;
 [].forEach.call(model.querySelectorAll('img'),function(im){im.classList.toggle('on',+im.dataset.look===cur.look&&im.dataset.side===want)});
 model.setAttribute('aria-label','Black glossy mannequin, '+heroLooks[cur.look].name+' look, '+want);
 [].forEach.call(document.getElementById('pills').children,function(x){x.setAttribute('aria-pressed',x.dataset.side===want)})}
-var sw=document.getElementById('swatches');
-heroLooks.forEach(function(l,i){var b=document.createElement('button');b.className='swatch';b.style.backgroundImage='url(assets/ai/look-'+l.k+'-front.webp)';b.setAttribute('aria-label',l.name);b.title=l.name;b.setAttribute('aria-pressed',i===0);
-b.onclick=function(){if(cur.look===i)return;cur.look=i;showLook();[].forEach.call(sw.children,function(x,k){x.setAttribute('aria-pressed',k===i)})};sw.appendChild(b)});
+// looks change by themselves every 10 s; thin bars show progress, a tap or a swipe jumps; it waits while the mouse is on the bars
+var bar=document.getElementById('lookbar'),DUR=10000,timer=null,heroBox=document.getElementById('hero'),still2=matchMedia('(prefers-reduced-motion:reduce)').matches;
+bar.style.setProperty('--dur',DUR/1000+'s');
+bar.innerHTML=heroLooks.map(function(l,i){return'<button type="button" role="tab" aria-label="'+l.name+'"><i></i></button>'}).join('');
+function paintBar(){[].forEach.call(bar.children,function(b,k){b.classList.toggle('done',k<cur.look);b.classList.remove('now');b.setAttribute('aria-selected',k===cur.look)});
+var now=bar.children[cur.look];void now.offsetWidth;now.classList.add('now');
+document.getElementById('lookNo').textContent=String(cur.look+1).padStart(2,'0')+' / '+String(heroLooks.length).padStart(2,'0');
+document.getElementById('lookName').textContent=heroLooks[cur.look].name}
+function go(i){cur.look=(i+heroLooks.length)%heroLooks.length;showLook();paintBar();plan()}
+function plan(){clearTimeout(timer);if(still2||bar.classList.contains('paused'))return;timer=setTimeout(function(){go(cur.look+1)},DUR)}
+bar.addEventListener('click',function(e){var b=e.target.closest('button');if(b)go([].indexOf.call(bar.children,b))});
+var mixBox=document.querySelector('.mix');
+mixBox.addEventListener('mouseenter',function(){bar.classList.add('paused');clearTimeout(timer)});
+mixBox.addEventListener('mouseleave',function(){bar.classList.remove('paused');paintBar();plan()});
+document.addEventListener('visibilitychange',function(){if(document.hidden)clearTimeout(timer);else{paintBar();plan()}});
+// swipe left / right on the hero picture
+var sx=null;heroBox.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+heroBox.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>50)go(cur.look+(dx<0?1:-1))});
+paintBar();plan();
 document.getElementById('pills').addEventListener('click',function(e){var b=e.target.closest('.pill');if(!b||b.disabled)return;cur.side=b.dataset.side;showLook()});
 showLook();
 
@@ -377,5 +401,11 @@ grid.addEventListener('click',function(e){var h=e.target.closest('.heart');if(!h
 
 // ---------- crew: four different looks side by side ----------
 document.getElementById('crewRow').innerHTML=['hero','indie','oldmoney','archive'].map(function(k){return'<img src="assets/ai/look-'+k+'-front.webp" alt="" loading="lazy">'}).join('');
+// all four at one height: the tallest that still lets the four widths fit in the row
+var crew=document.getElementById('crewRow');
+function fitCrew(){var ims=[].slice.call(crew.children);if(ims.some(function(i){return!i.naturalWidth}))return;
+var r=crew.getBoundingClientRect(),sum=ims.reduce(function(a,i){return a+i.naturalWidth/i.naturalHeight},0);
+var h=Math.min(r.height,(r.width-ims.length*6)/sum);ims.forEach(function(i){i.style.height=h+'px';i.style.width='auto';i.style.maxWidth='none'})}
+[].forEach.call(crew.children,function(i){i.loading='eager';i.addEventListener('load',fitCrew)});addEventListener('resize',fitCrew);fitCrew();
 })();
 </script></body></html>

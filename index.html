@@ -6,11 +6,11 @@
 <link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
-<meta name="drape-build" content="20261101133733">
+<meta name="drape-build" content="20261101134616">
 <title>Drape</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="drape.css?v=20261101133733">
+<link rel="stylesheet" href="drape.css?v=20261101134616">
 <style>
 :root{--p:0}
 button{font:inherit;color:inherit}
@@ -168,19 +168,26 @@ footer nav a{font-size:13px}
 .mchips{display:flex;gap:6px;margin-top:26px}
 .mchips span{height:30px;padding:0 13px;border-radius:999px;border:1px solid var(--line);display:flex;align-items:center;font-size:12px}
 .mchips span:first-child{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
-.mslots{margin:34px 0;display:flex;flex-direction:column;gap:8px}
-.mslots div{display:flex;align-items:center;gap:14px;padding:8px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08)}
-.mslots div:nth-child(2){border-color:rgba(255,255,255,.7)}
-.mslots img{width:46px;height:58px;object-fit:contain;padding:5px;border-radius:10px;background:#dde5ea}
-.mslots small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;margin-bottom:3px}
-.mslots b{font-weight:500;font-size:15px}
-.d1 .mslots{max-width:56%}
-.mprev{position:absolute;right:8px;bottom:28px;width:46%;height:calc(100% - 110px);pointer-events:none}
+/* the look as an editorial list: hairlines, a small label, the piece's name in the serif. No boxes. */
+.mslots{position:relative;z-index:1;margin:40px 0 28px;display:flex;flex-direction:column;max-width:52%}
+.mslots div{display:flex;align-items:baseline;gap:18px;padding:16px 0;border-top:1px solid rgba(255,255,255,.14)}
+.mslots div:last-child{border-bottom:1px solid rgba(255,255,255,.14)}
+.mslots img{display:none}
+.mslots small{flex:none;width:62px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.mslots b{font:400 clamp(22px,2vw,28px)/1.05 var(--serif);letter-spacing:-.01em;color:#fff}
+.mslots span{display:contents}
+/* the mannequin is big and walks off the right edge, like a cropped fashion shot */
+.mprev{position:absolute;inset:auto 0 -2% 0;height:calc(100% - 150px);pointer-events:none;z-index:0}
+.mprev img{left:auto!important;right:-20%;width:auto!important;height:100%!important}
 .mprev img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%;transition:opacity .45s}
 .mprev img.off{opacity:0}
-.mslots div{transition:border-color .3s,background .3s}
-.mslots img{transition:opacity .3s}
-.shuf{align-self:flex-start;display:flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.mslots b{transition:opacity .4s}
+/* quiet text actions instead of pills and circles */
+.shuf{position:relative;z-index:1;align-self:flex-start;display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.shuf svg{width:14px;height:14px}
+.panel .go{position:relative;z-index:1;gap:10px;font-size:12px;letter-spacing:.16em;padding-bottom:6px;align-self:flex-start;background:linear-gradient(currentColor,currentColor) 0 100%/40% 1px no-repeat;transition:background-size .5s var(--ease)}
+.panel:hover .go{background-size:100% 1px}
+.panel .go i{width:auto;height:auto;background:none!important;color:inherit!important;order:2}
 
 /* final call */
 .end{position:relative;overflow:hidden;margin:0 14px 14px;border-radius:30px;padding:150px 40px 60px;text-align:center;background:radial-gradient(60% 70% at 50% 110%,#2c343c,#101316 70%);color:#fff}
@@ -244,10 +251,16 @@ h1{font-size:clamp(60px,8vw,128px)}
 .show{padding:0 var(--gutter) 70px!important;gap:12px}
 .panel{min-height:0;padding:22px;border-radius:22px}
 .mini{margin:22px 0}
-.mslots{margin:22px 0}
-.d1 .mslots{max-width:62%}
-.mprev{width:42%;height:calc(100% - 140px)}
+.mslots{margin:24px 0 20px;max-width:60%}
+.mslots div{padding:12px 0;gap:10px;flex-direction:column}
+.mslots b{font-size:21px}
+.mprev{height:calc(100% - 120px)}
+.mprev img{right:-46%}
+.mslots{max-width:54%}
+.d1{min-height:560px}
 .crew{padding:10px 0 70px}
+.big{font-size:15vw;line-height:.95;color:rgb(var(--ink-rgb) / .1)}
+.card{margin:14px auto 0!important}
 .card{border-radius:22px;aspect-ratio:4/5}
 .crew-row{inset:46px 6px 70px}
 .card-cap{font-size:11px}
@@ -305,9 +318,9 @@ footer{flex-direction:column;gap:14px;text-align:center}
 <section class="end" data-reveal><h2 data-split>Your wardrobe. Your looks. <em>Your rules.</em></h2><p>Private by default. Share only if you want to.</p><a class="btn light" href="wardrobe.html">Start styling</a><span class="huge" aria-hidden="true">Drape</span></section>
 <footer><span class="word">Drape</span><nav><a href="catalog.html">Catalog</a><a href="wardrobe.html">Wardrobe</a><a href="outfits.html">Outfits</a></nav><span><a href="credits.html" style="color:inherit">Credits</a> · © 2026 Drape</span></footer>
 
-<script src="drape-store.js?v=20261101133733"></script>
-<script src="drape-nav.js?v=20261101133733"></script>
-<script src="drape-catalog.js?v=20261101133733"></script>
+<script src="drape-store.js?v=20261101134616"></script>
+<script src="drape-nav.js?v=20261101134616"></script>
+<script src="drape-catalog.js?v=20261101134616"></script>
 <script>
 (function(){
 var root=document.documentElement,hdr=document.querySelector('header');

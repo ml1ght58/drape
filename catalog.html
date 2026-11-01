@@ -6,11 +6,11 @@
 <link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
-<meta name="drape-build" content="20261101164040">
+<meta name="drape-build" content="20261101195028">
 <title>Catalog · Drape</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="drape.css?v=20261101164040">
+<link rel="stylesheet" href="drape.css?v=20261101195028">
 <style>
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -46,7 +46,7 @@ h2{margin:0;font-family:var(--h-font);font-weight:var(--h-weight);font-size:clam
 .kit-row .tags{display:none}
 
 /* toolbar */
-.tools{position:sticky;top:74px;z-index:5;padding:14px 0 16px;margin-bottom:20px;background:linear-gradient(var(--page) 80%,rgb(var(--page-rgb) / 0))}
+.tools{position:sticky;top:var(--hh,74px);z-index:5;padding:14px 0 16px;margin-bottom:20px;background:linear-gradient(var(--page) 80%,rgb(var(--page-rgb) / 0))}
 /* filters slide away while you scroll down to look at clothes, and come back as soon as you scroll up */
 .tools{transition:transform .6s cubic-bezier(.22,.8,.24,1),opacity .45s ease}
 .tools.away{transform:translateY(-40px);opacity:0;pointer-events:none;transition:transform .5s cubic-bezier(.4,0,.6,1),opacity .3s ease}
@@ -101,7 +101,7 @@ h2{margin:0;font-family:var(--h-font);font-weight:var(--h-weight);font-size:clam
 h1,.intro,.kit{animation:rise .9s cubic-bezier(.2,.7,.2,1) backwards}.intro{animation-delay:.1s}.kit{animation-delay:.2s}
 .anim .card{animation:rise .6s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--i,0)*35ms)}
 @media (max-width:1200px){.grid{grid-template-columns:repeat(4,1fr)}.kit-row{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:900px){header{padding-left:22px;padding-right:22px}nav{display:none}main{padding:40px 22px 90px}.grid{grid-template-columns:repeat(2,1fr)}.top{flex-direction:column;align-items:flex-start}.tools{top:70px}}
+@media (max-width:900px){header{padding-left:22px;padding-right:22px}nav{display:none}main{padding:40px 22px 90px}.grid{grid-template-columns:repeat(2,1fr)}.top{flex-direction:column;align-items:flex-start}.tools{top:var(--hh,70px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 
@@ -122,7 +122,7 @@ h1{font-size:clamp(34px,11vw,48px);margin-top:10px}
 .kit-row{display:flex;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:0 18px}
 .kit-row::-webkit-scrollbar{display:none}
 .kit-row .card{flex:none;width:128px}
-.tools{top:58px;padding:10px 0 12px;margin-bottom:12px}
+.tools{top:var(--hh,58px);padding:10px 0 12px;margin-bottom:12px}
 .tools .rows{display:flex;flex-direction:column;align-items:stretch;gap:8px}.tools .rows>*{min-width:0;max-width:100%}.tools .chips{min-width:0}
 .grid{gap:10px}
 .dots{flex:none;display:flex;flex-wrap:nowrap}
@@ -175,9 +175,9 @@ h1{font-size:clamp(34px,11vw,48px);margin-top:10px}
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastText"></span><a id="toastLink"></a></div>
 
-<script src="drape-store.js?v=20261101164040"></script>
-<script src="drape-nav.js?v=20261101164040"></script>
-<script src="drape-catalog.js?v=20261101164040"></script>
+<script src="drape-store.js?v=20261101195028"></script>
+<script src="drape-nav.js?v=20261101195028"></script>
+<script src="drape-catalog.js?v=20261101195028"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)},D=DrapeData,ALL=D.CATALOG;
@@ -248,5 +248,7 @@ DrapeStore.all('garments').then(function(list){(list||[]).forEach(function(g){if
 addEventListener('scroll',function(){var y=scrollY,d=y-last;last=y;
 if(y<start+200){tools.classList.remove('away');acc=0;return}
 acc=(d>0)===(acc>0)?acc+d:d;if(acc>90)tools.classList.add('away');else if(acc<-50)tools.classList.remove('away')},{passive:true})})();
+// the filters stick right under the header, whatever its height (Telegram full screen makes it taller)
+(function(){var hd=document.querySelector('header');if(!hd||!window.ResizeObserver)return;new ResizeObserver(function(){document.documentElement.style.setProperty('--hh',hd.offsetHeight+'px')}).observe(hd)})();
 })();
 </script></body></html>

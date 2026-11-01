@@ -6,11 +6,11 @@
 <link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
-<meta name="drape-build" content="20261101164040">
+<meta name="drape-build" content="20261101195028">
 <title>Outfits · Drape</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="drape.css?v=20261101164040">
+<link rel="stylesheet" href="drape.css?v=20261101195028">
 <style>
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -259,9 +259,9 @@ h1,h2{font-size:clamp(32px,10vw,44px)}
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="drape-store.js?v=20261101164040"></script>
-<script src="drape-nav.js?v=20261101164040"></script>
-<script src="drape-catalog.js?v=20261101164040"></script>
+<script src="drape-store.js?v=20261101195028"></script>
+<script src="drape-nav.js?v=20261101195028"></script>
+<script src="drape-catalog.js?v=20261101195028"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -328,12 +328,12 @@ if(!url){im.removeAttribute('src');done&&done();return}
 im.onload=function(){if(im.dataset.src!==url)return;im.classList.add('on');done&&done()};
 im.onerror=function(){if(im.dataset.src!==url)return;im.classList.remove('on');im.dataset.bad='1';done&&done()};
 im.src=url}
-function layerUrl(it){if(!it||!it.catalogId)return'';var c=CAT[it.catalogId];if(c&&c.layer===false)return'';return'assets/ai/layers/'+it.catalogId+'-'+view+'.png'}
+function layerUrl(it){if(!it||!it.catalogId)return'';var c=CAT[it.catalogId];if(c&&c.layer===false)return'';return'assets/ai/layers/'+it.catalogId+'-'+view+'.webp'}
 function updateNote(){var own=0,noLayer=0;ORDER.forEach(function(k){var it=byId[cur[k]];if(!it)return;if(!it.catalogId)own++;else if(layer[k].dataset.bad)noLayer++});
 var t=[];if(own)t.push('Your own photo items will appear on the mannequin with AI try-on (coming soon).');if(noLayer)t.push(noLayer===1?'One catalog piece has no mannequin image yet.':noLayer+' catalog pieces have no mannequin image yet.');
 $('note').textContent=t.join(' ');$('note').hidden=!t.length}
 function paintMannequin(){var base=$('base');
-loadInto(base,'assets/ai/mannequin-full-'+view+'.png',function(){$('miss').hidden=!base.dataset.bad});
+loadInto(base,'assets/ai/mannequin-full-'+view+'.webp',function(){$('miss').hidden=!base.dataset.bad});
 ORDER.forEach(function(k){loadInto(layer[k],layerUrl(byId[cur[k]]),updateNote)});updateNote()}
 $('pills').addEventListener('click',function(e){var b=e.target.closest('.pill');if(!b||b.dataset.v===view)return;view=b.dataset.v;
 [].forEach.call($('pills').children,function(x){x.setAttribute('aria-pressed',x===b)});

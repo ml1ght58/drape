@@ -42,6 +42,11 @@ function start(tg){if(!tg)return;
   // Telegram's own Back button replaces the browser one; it is hidden on the first page of the visit
   var first=false;try{first=!sessionStorage.getItem('drape-tg-seen');sessionStorage.setItem('drape-tg-seen','1')}catch(e){}
   if(at('6.1')){if(first||history.length<2)tg.BackButton.hide();else{tg.BackButton.show();tg.BackButton.onClick(function(){history.back()})}}
+  // on a computer the app opens full screen (Telegram 8.0+); Telegram's own buttons then float on top,
+  // so .tg-full pushes our header below them (Telegram fills the --tg-*-safe-area-inset-* sizes)
+  function full(){document.documentElement.classList.toggle('tg-full',!!tg.isFullscreen)}
+  if(at('8.0')){tg.onEvent('fullscreenChanged',full);full();
+    if(/^(tdesktop|macos|unigram)$/.test(tg.platform)&&!tg.isFullscreen)try{tg.requestFullscreen()}catch(e){}}
   // the outfit table is dragged with a finger: don't let that swipe close the app
   if(/outfits/.test(here)&&at('7.7'))try{tg.disableVerticalSwipes()}catch(e){}
   // a light tap feeling on buttons

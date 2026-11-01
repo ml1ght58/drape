@@ -6,11 +6,11 @@
 <link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
-<meta name="drape-build" content="20261101164040">
+<meta name="drape-build" content="20261101195028">
 <title>Drape</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="drape.css?v=20261101164040">
+<link rel="stylesheet" href="drape.css?v=20261101195028">
 <style>
 :root{--p:0}
 button{font:inherit;color:inherit}
@@ -331,9 +331,9 @@ footer{flex-direction:column;gap:14px;text-align:center}
 <section class="end" data-reveal><h2 data-split>Your wardrobe. Your looks. <em>Your rules.</em></h2><p>Private by default. Share only if you want to.</p><a class="btn light" href="wardrobe.html">Start styling</a><span class="huge" aria-hidden="true">Drape</span></section>
 <footer><span class="word">Drape</span><nav><a href="catalog.html">Catalog</a><a href="wardrobe.html">Wardrobe</a><a href="outfits.html">Outfits</a></nav><span><a href="credits.html" style="color:inherit">Credits</a> · © 2026 Drape</span></footer>
 
-<script src="drape-store.js?v=20261101164040"></script>
-<script src="drape-nav.js?v=20261101164040"></script>
-<script src="drape-catalog.js?v=20261101164040"></script>
+<script src="drape-store.js?v=20261101195028"></script>
+<script src="drape-nav.js?v=20261101195028"></script>
+<script src="drape-catalog.js?v=20261101195028"></script>
 <script>
 (function(){
 var root=document.documentElement,hdr=document.querySelector('header');
@@ -372,7 +372,7 @@ var mo=document.getElementById('miniO'),mm=document.getElementById('miniM');
 function paintMini(){var l=MINI[mi];if(!l)return;
 mo.innerHTML=['Top','Bottom','Shoes'].map(function(t,k){return'<div><img src="'+pic(l[k])+'" alt=""><span><small>'+t+'</small><b>'+ready[l[k]].name+'</b></span></div>'}).join('');
 // layers stacked in the same order as the Outfits page: base, bottom, shoes, top
-var srcs=['assets/ai/mannequin-full-front.png','assets/ai/layers/'+l[1]+'-front.png','assets/ai/layers/'+l[2]+'-front.png','assets/ai/layers/'+l[0]+'-front.png'];
+var srcs=['assets/ai/mannequin-full-front.webp','assets/ai/layers/'+l[1]+'-front.webp','assets/ai/layers/'+l[2]+'-front.webp','assets/ai/layers/'+l[0]+'-front.webp'];
 if(!mm.children.length)mm.innerHTML=srcs.map(function(){return'<img alt="">'}).join('');
 [].forEach.call(mm.children,function(im,k){if(im.getAttribute('src')===srcs[k])return;im.classList.add('off');setTimeout(function(){im.onload=function(){im.classList.remove('off')};im.src=srcs[k]},k?250:0)})}
 paintMini();

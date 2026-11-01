@@ -6,10 +6,11 @@
 <link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
+<meta name="drape-build" content="20261101133733">
 <title>Catalog · Drape</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="drape.css?v=1102l">
+<link rel="stylesheet" href="drape.css?v=20261101133733">
 <style>
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -47,8 +48,8 @@ h2{margin:0;font-family:var(--h-font);font-weight:var(--h-weight);font-size:clam
 /* toolbar */
 .tools{position:sticky;top:74px;z-index:5;padding:14px 0 16px;margin-bottom:20px;background:linear-gradient(var(--page) 80%,rgb(var(--page-rgb) / 0))}
 /* filters slide away while you scroll down to look at clothes, and come back as soon as you scroll up */
-.tools{transition:transform .35s var(--ease),opacity .25s}
-.tools.away{transform:translateY(calc(-100% - 80px));opacity:0;pointer-events:none}
+.tools{transition:transform .6s cubic-bezier(.22,.8,.24,1),opacity .45s ease}
+.tools.away{transform:translateY(-40px);opacity:0;pointer-events:none;transition:transform .5s cubic-bezier(.4,0,.6,1),opacity .3s ease}
 .search{display:flex;align-items:center;gap:12px;height:56px;padding:0 20px;border-radius:999px;background:var(--surface);border:1px solid var(--line);margin-bottom:14px}
 .search input{flex:1;border:0;outline:none;background:transparent;font-size:16px;height:100%}
 .search svg{color:var(--muted)}
@@ -159,9 +160,9 @@ h1{font-size:clamp(34px,11vw,48px);margin-top:10px}
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastText"></span><a id="toastLink"></a></div>
 
-<script src="drape-store.js?v=1102f"></script>
-<script src="drape-nav.js?v=1102k"></script>
-<script src="drape-catalog.js?v=1102m"></script>
+<script src="drape-store.js?v=20261101133733"></script>
+<script src="drape-nav.js?v=20261101133733"></script>
+<script src="drape-catalog.js?v=20261101133733"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)},D=DrapeData,ALL=D.CATALOG;
@@ -231,6 +232,6 @@ DrapeStore.all('garments').then(function(list){(list||[]).forEach(function(g){if
 (function(){var tools=document.querySelector('.tools'),last=scrollY,acc=0,start=tools.getBoundingClientRect().top+scrollY;
 addEventListener('scroll',function(){var y=scrollY,d=y-last;last=y;
 if(y<start+200){tools.classList.remove('away');acc=0;return}
-acc=(d>0)===(acc>0)?acc+d:d;if(acc>40)tools.classList.add('away');else if(acc<-30)tools.classList.remove('away')},{passive:true})})();
+acc=(d>0)===(acc>0)?acc+d:d;if(acc>90)tools.classList.add('away');else if(acc<-50)tools.classList.remove('away')},{passive:true})})();
 })();
 </script></body></html>

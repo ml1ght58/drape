@@ -6,10 +6,11 @@
 <link rel="icon" href="assets/brand/favicon-light.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="assets/brand/favicon-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/brand/favicon-light.png">
+<meta name="drape-build" content="20261101133733">
 <title>Drape</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="drape.css?v=1102l">
+<link rel="stylesheet" href="drape.css?v=20261101133733">
 <style>
 :root{--p:0}
 button{font:inherit;color:inherit}
@@ -66,13 +67,20 @@ h1 em{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:
 .lookname{display:flex;align-items:baseline;gap:10px;color:var(--ink)}
 .lookname b{font:400 26px/1 var(--serif);letter-spacing:-.01em;transition:opacity .3s}
 .lookname span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.view{position:absolute;z-index:2;right:58px;bottom:58px;width:290px;padding:20px;border-radius:22px;background:rgb(var(--glass-rgb) / .55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgb(var(--glass-rgb) / .7)}
+.cta{display:inline-flex;align-items:center;gap:10px;padding:8px 0;color:var(--ink);text-decoration:none;font-size:13px;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(currentColor,currentColor) 0 100%/34% 1px no-repeat;transition:background-size .5s var(--ease)}
+.cta:hover{background-size:100% 1px}
+.cta svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;transition:transform .3s var(--ease)}
+.cta:hover svg{transform:translateX(4px)}
+/* front / back: two quiet words, the active one in full ink */
+.view{position:absolute;z-index:2;right:58px;bottom:58px}
 .view-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
 .view-top span:last-child{color:var(--muted);text-transform:none;letter-spacing:0}
-.pills{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.pill{height:38px;border-radius:999px;border:1px solid var(--line);background:transparent;font-size:13px;cursor:pointer;transition:background .2s,color .2s}
-.pill:hover{background:rgb(var(--glass-rgb) / .8)}
-.pill[aria-pressed=true]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.pills{display:flex;gap:18px;align-items:center}
+.pill{height:30px;padding:0;border:0;background:none;color:var(--muted);font:inherit;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:color .25s;position:relative}
+.pill:hover{color:var(--ink)}
+.pill[aria-pressed=true]{color:var(--ink)}
+.pill[aria-pressed=true]::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:1px;background:currentColor}
+.pills .pill+.pill::before{content:"";position:absolute;left:-10px;top:50%;width:1px;height:10px;margin-top:-5px;background:var(--line)}
 
 /* how */
 .how{max-width:1280px;margin:0 auto;padding:150px 58px 140px}
@@ -215,10 +223,8 @@ h1{font-size:clamp(60px,8vw,128px)}
 .lookbar{margin-bottom:8px;gap:4px}
 .lookbar button{width:26px;height:26px}
 .lookname b{display:none}
-.view{display:block!important;right:14px;bottom:14px;width:auto;padding:5px;border-radius:999px}
-.view-top{display:none}
-.view .pills{gap:4px}
-.view .pill{height:32px;padding:0 14px;font-size:12px}
+.view{display:block!important;right:18px;bottom:16px}
+.view .pill{height:34px;font-size:11px}
 .ticker{padding:20px 0}
 .how{padding:70px var(--gutter) 60px}
 .how h2{margin:14px 0 40px}
@@ -261,10 +267,9 @@ footer{flex-direction:column;gap:14px;text-align:center}
 <section class="hero" id="hero">
 <div class="model" id="model" role="img" aria-label="Black glossy mannequin in a styled outfit"></div>
 <div class="copy"><h1 data-split>See how it <em>drapes</em></h1><p class="sub">Mix. Layer. Find your perfect fit.</p>
-<div class="ctas"><a class="btn dark" href="wardrobe.html">Start styling</a><a class="btn light" href="#how">How it works</a></div></div>
+<div class="ctas"><a class="cta" href="wardrobe.html">Start styling<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
 <div class="mix"><div class="lookbar" id="lookbar" role="tablist" aria-label="Looks"></div><div class="lookname" aria-live="polite"><span id="lookNo">01 / 05</span><b id="lookName"></b></div></div>
-<div class="view"><div class="view-top"><span>View</span><span>Front or back</span></div>
-<div class="pills two" id="pills"><button class="pill" data-side="front" aria-pressed="true">Front</button><button class="pill" data-side="back">Back</button></div></div>
+<div class="view"><div class="pills two" id="pills" role="group" aria-label="View"><button class="pill" data-side="front" aria-pressed="true">Front</button><button class="pill" data-side="back">Back</button></div></div>
 </section>
 
 <div class="ticker" aria-hidden="true"><div class="track"><span>Streetwear</span><i></i><span>Casual</span><i></i><span>Smart casual</span><i></i><span>Formal</span><i></i><span>Sport</span><i></i><span>Outdoor</span><i></i><span>Vintage</span><i></i><span>Workwear</span><i></i><span>Minimal</span><i></i><span>Y2K</span><i></i><span>Streetwear</span><i></i><span>Casual</span><i></i><span>Smart casual</span><i></i><span>Formal</span><i></i><span>Sport</span><i></i><span>Outdoor</span><i></i><span>Vintage</span><i></i><span>Workwear</span><i></i><span>Minimal</span><i></i><span>Y2K</span><i></i></div></div>
@@ -300,9 +305,9 @@ footer{flex-direction:column;gap:14px;text-align:center}
 <section class="end" data-reveal><h2 data-split>Your wardrobe. Your looks. <em>Your rules.</em></h2><p>Private by default. Share only if you want to.</p><a class="btn light" href="wardrobe.html">Start styling</a><span class="huge" aria-hidden="true">Drape</span></section>
 <footer><span class="word">Drape</span><nav><a href="catalog.html">Catalog</a><a href="wardrobe.html">Wardrobe</a><a href="outfits.html">Outfits</a></nav><span><a href="credits.html" style="color:inherit">Credits</a> · © 2026 Drape</span></footer>
 
-<script src="drape-store.js?v=1102f"></script>
-<script src="drape-nav.js?v=1102k"></script>
-<script src="drape-catalog.js?v=1102m"></script>
+<script src="drape-store.js?v=20261101133733"></script>
+<script src="drape-nav.js?v=20261101133733"></script>
+<script src="drape-catalog.js?v=20261101133733"></script>
 <script>
 (function(){
 var root=document.documentElement,hdr=document.querySelector('header');
@@ -346,8 +351,8 @@ if(!mm.children.length)mm.innerHTML=srcs.map(function(){return'<img alt="">'}).j
 [].forEach.call(mm.children,function(im,k){if(im.getAttribute('src')===srcs[k])return;im.classList.add('off');setTimeout(function(){im.onload=function(){im.classList.remove('off')};im.src=srcs[k]},k?250:0)})}
 paintMini();
 if(MINI.length>1&&!matchMedia('(prefers-reduced-motion:reduce)').matches){var mt=null,panel=mm.closest('.panel');
-var go=function(){mt=setInterval(function(){mi=(mi+1)%MINI.length;paintMini()},3200)};
-if('IntersectionObserver'in window)new IntersectionObserver(function(es){if(es[0].isIntersecting){if(!mt)go()}else{clearInterval(mt);mt=null}}).observe(panel);else go()}
+var miniGo=function(){if(mt)return;mt=setInterval(function(){mi=(mi+1)%MINI.length;paintMini()},7000)};
+if('IntersectionObserver'in window)new IntersectionObserver(function(es){if(es[0].isIntersecting)miniGo();else{clearInterval(mt);mt=null}}).observe(panel);else miniGo()}
 
 var still=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
@@ -368,16 +373,16 @@ function paintBar(){[].forEach.call(bar.children,function(b,k){b.classList.toggl
 var now=bar.children[cur.look];void now.offsetWidth;now.classList.add('now');
 document.getElementById('lookNo').textContent=String(cur.look+1).padStart(2,'0')+' / '+String(heroLooks.length).padStart(2,'0');
 document.getElementById('lookName').textContent=heroLooks[cur.look].name}
-function go(i){cur.look=(i+heroLooks.length)%heroLooks.length;showLook();paintBar();plan()}
-function plan(){clearTimeout(timer);if(still2||bar.classList.contains('paused'))return;timer=setTimeout(function(){go(cur.look+1)},DUR)}
-bar.addEventListener('click',function(e){var b=e.target.closest('button');if(b)go([].indexOf.call(bar.children,b))});
+function goLook(i){cur.look=(i+heroLooks.length)%heroLooks.length;showLook();paintBar();plan()}
+function plan(){clearTimeout(timer);if(still2||bar.classList.contains('paused'))return;timer=setTimeout(function(){goLook(cur.look+1)},DUR)}
+bar.addEventListener('click',function(e){var b=e.target.closest('button');if(b)goLook([].indexOf.call(bar.children,b))});
 var mixBox=document.querySelector('.mix');
 mixBox.addEventListener('mouseenter',function(){bar.classList.add('paused');clearTimeout(timer)});
 mixBox.addEventListener('mouseleave',function(){bar.classList.remove('paused');paintBar();plan()});
 document.addEventListener('visibilitychange',function(){if(document.hidden)clearTimeout(timer);else{paintBar();plan()}});
 // swipe left / right on the hero picture
 var sx=null;heroBox.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
-heroBox.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>50)go(cur.look+(dx<0?1:-1))});
+heroBox.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>50)goLook(cur.look+(dx<0?1:-1))});
 paintBar();plan();
 document.getElementById('pills').addEventListener('click',function(e){var b=e.target.closest('.pill');if(!b||b.disabled)return;cur.side=b.dataset.side;showLook()});
 showLook();

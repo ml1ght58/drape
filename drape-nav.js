@@ -16,6 +16,14 @@ bar.innerHTML=T.map(function(t){var on=here==='Drape — '+t[0]+'.html'||here===
 return'<a class="tab" href="'+(long?P:'')+t[0]+'.html"'+(on?' aria-current="page"':'')+'><svg viewBox="0 0 24 24" aria-hidden="true">'+I[t[0]]+'</svg><span>'+t[1]+'</span></a>'}).join('');
 document.body.appendChild(bar);document.documentElement.classList.add('has-tabbar');
 
+// ---------- always the newest version ----------
+// Telegram and GitHub keep old pages for a while. The published site knows its build id (meta drape-build);
+// if version.json says there is a newer one, the page reloads itself once with the new id in the address.
+(function(){var m=document.querySelector('meta[name=drape-build]');if(!m||!window.fetch)return;var mine=m.content;
+fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(v){
+if(!v||!v.build||v.build===mine)return;var k='drape-reload-'+v.build;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1')}catch(e){}
+var u=new URL(location.href);u.searchParams.set('b',v.build);location.replace(u.toString())}).catch(function(){})})();
+
 // ---------- Telegram Mini App ----------
 // Telegram opens the first page with #tgWebAppData... in the address; we remember that for the next pages of the visit.
 var inTg=/tgWebApp/.test(location.hash);
